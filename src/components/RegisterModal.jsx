@@ -42,7 +42,6 @@ function RegisterModal({ isOpen, onClose }) {
   async function onRegister() {
     if (!isUsernameValid() || !isPasswordValid()) return;
 
-    console.log(username, password, password2);
     try {
       await register(username, password);
       setIsLoggedIn(true);

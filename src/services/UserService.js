@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const BASE_URL = "http://localhost:3000";
+
 async function register(username, password) {
   try {
-    const res = await axios.post("http://localhost:3000/users", {
+    const res = await axios.post(BASE_URL + "/users", {
       username,
       password,
     });
@@ -17,7 +19,7 @@ async function register(username, password) {
 
 async function login(username, password) {
   try {
-    const res = await axios.post("http://localhost:3000/users/login", {
+    const res = await axios.post(BASE_URL + "/users/login", {
       username,
       password,
     });
