@@ -2,9 +2,14 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 
-async function getAllBooks() {
+async function getBooks(title, author, genre) {
   try {
-    const res = await axios.get(BASE_URL + "/books");
+    const params = {
+      title,
+      author,
+      genre,
+    };
+    const res = await axios.get(BASE_URL + "/books", { params });
     return res.data;
   } catch (err) {
     throw new Error(err.response?.data ?? err.message);
@@ -26,4 +31,4 @@ async function createBookListing(title, author, genre) {
   }
 }
 
-export { getAllBooks, createBookListing };
+export { getBooks, createBookListing };

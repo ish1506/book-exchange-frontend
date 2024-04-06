@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import BooksGrid from "../components/books/BooksGrid";
 import PageContainer from "../components/PageContainer";
-import { getAllBooks } from "../services/BooksService";
+import SearchBar from "../components/SearchBar";
+import { getBooks } from "../services/BooksService";
 
 export default function HomePage() {
-  const [recentBooks, setRecentBooks] = useState([]);
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
     fetchBooks();
   }, []);
 
-  function fetchBooks() {
-    getAllBooks().then((books) => {
-      setRecentBooks(books);
+  function fetchBooks(searchTitle) {
+    getBooks(searchTitle).then((books) => {
+      setBooks(books);
     });
   }
 
-  // TODO: Implement search bar
   return (
     <PageContainer onBookAdded={fetchBooks}>
-      <BooksGrid books={recentBooks} />
+      <SearchBar onSearch={fetchBooks} />
+      <BooksGrid books={books} />
     </PageContainer>
   );
 }
