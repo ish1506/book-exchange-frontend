@@ -7,14 +7,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { PropTypes } from "prop-types";
-// import * as React from "react";
+import { useContext } from "react";
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
+import { UserContext } from "../contexts/UserContext";
 
 /**
  * Wraps Page components in a with a Header row
  */
 function PageContainer({ children }) {
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+
   const {
     isOpen: isRegisterOpen,
     onOpen: onRegisterOpen,
@@ -34,6 +37,11 @@ function PageContainer({ children }) {
     onLoginOpen();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    setIsLoggedIn(false);
+  };
+
   return (
     <>
       <Box bg="teal.400" w="100%" p={4} color="white">
@@ -42,12 +50,20 @@ function PageContainer({ children }) {
             BookExchange
           </Text>
           <Spacer />
-          <Button variant="solid" size="lg" onClick={handleRegister}>
-            Register
-          </Button>
-          <Button variant="solid" size="lg" ml={3} onClick={handleLogin}>
-            Login
-          </Button>
+          {isLoggedIn ? (
+            <Button variant="solid" size="lg" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button variant="solid" size="lg" onClick={handleRegister}>
+                Register
+              </Button>
+              <Button variant="solid" size="lg" ml={3} onClick={handleLogin}>
+                Login
+              </Button>
+            </>
+          )}
         </Flex>
       </Box>
       {children}
@@ -56,6 +72,7 @@ function PageContainer({ children }) {
     </>
   );
 }
+
 PageContainer.propTypes = {
   children: PropTypes.object,
 };

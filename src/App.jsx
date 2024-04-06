@@ -1,15 +1,18 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { UserProvider } from "./contexts/UserContext";
 import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <ChakraProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </Router>
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </Router>
+      </UserProvider>
     </ChakraProvider>
   );
 }
