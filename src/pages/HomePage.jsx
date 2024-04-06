@@ -19,8 +19,10 @@ export default function HomePage() {
 
   return (
     <PageContainer onBookAdded={fetchBooks}>
-      <SearchBar onSearch={fetchBooks} />
-      <BooksGrid books={books} />
+      <>
+        <SearchBar onSearch={fetchBooks} />
+        <BooksGrid books={books} />
+      </>
     </PageContainer>
   );
 }

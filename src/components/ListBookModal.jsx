@@ -13,8 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { PropTypes } from "prop-types";
-import * as React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createBookListing } from "../services/BooksService";
 
 function ListBookModal({ isOpen, onClose, onBookAdded }) {
@@ -22,7 +21,7 @@ function ListBookModal({ isOpen, onClose, onBookAdded }) {
   const [author, setAuthor] = useState("");
   const [genre, setGenre] = useState("");
   const [error, setError] = useState("");
-  const initialRef = React.useRef();
+  const initialRef = useRef();
 
   function resetForm() {
     setTitle("");
@@ -33,6 +32,15 @@ function ListBookModal({ isOpen, onClose, onBookAdded }) {
 
   async function onCreateBookListing() {
     try {
+      if (!title) {
+        setError("Title is required");
+        return;
+      }
+      if (!author) {
+        setError("Author is required");
+        return;
+      }
+
       await createBookListing(title, author, genre);
       resetForm();
       onBookAdded();
