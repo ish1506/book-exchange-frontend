@@ -7,14 +7,18 @@ export default function HomePage() {
   const [recentBooks, setRecentBooks] = useState([]);
 
   useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  function fetchBooks() {
     getAllBooks().then((books) => {
       setRecentBooks(books);
     });
-  }, []);
+  }
 
   // TODO: Implement search bar
   return (
-    <PageContainer>
+    <PageContainer onBookAdded={fetchBooks}>
       <BooksGrid books={recentBooks} />
     </PageContainer>
   );

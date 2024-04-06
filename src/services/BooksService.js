@@ -11,4 +11,19 @@ async function getAllBooks() {
   }
 }
 
-export { getAllBooks };
+async function createBookListing(title, author, genre) {
+  try {
+    const userId = JSON.parse(localStorage.getItem("userId") ?? null);
+    const res = await axios.post(BASE_URL + "/books", {
+      title,
+      author,
+      genre,
+      ownerId: userId,
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response?.data ?? err.message);
+  }
+}
+
+export { getAllBooks, createBookListing };
