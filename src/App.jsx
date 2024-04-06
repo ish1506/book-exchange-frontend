@@ -1,8 +1,16 @@
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+
 function App() {
   return (
-    <>
-      <h1>BookExchange</h1>
-    </>
+    <ChakraProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+        </Routes>
+      </Router>
+    </ChakraProvider>
   );
 }
 
